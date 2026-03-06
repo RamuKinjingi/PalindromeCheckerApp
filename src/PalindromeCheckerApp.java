@@ -1,20 +1,29 @@
 
 import java.util.Scanner;
+class PalindromeChecker {
 
-public class PalindromeCheckerApp {
+    public boolean checkPalindrome(String input) {
 
-    public static boolean isPalindrome(String input) {
+        if (input == null) {
+            return false;
+        }
 
-        // Step 1: Normalize string
-        // Remove all spaces using regex and convert to lowercase
+        // Normalize string (ignore spaces and case)
         String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        // Step 2: Apply palindrome logic using two-pointer technique
+        return isPalindrome(normalized);
+    }
+
+    // Private helper method (hidden logic)
+    private boolean isPalindrome(String str) {
+
+        char[] charArray = str.toCharArray();
+
         int start = 0;
-        int end = normalized.length() - 1;
+        int end = charArray.length - 1;
 
         while (start < end) {
-            if (normalized.charAt(start) != normalized.charAt(end)) {
+            if (charArray[start] != charArray[end]) {
                 return false;
             }
             start++;
@@ -23,19 +32,24 @@ public class PalindromeCheckerApp {
 
         return true;
     }
+}
+
+// Application Class (Main Class)
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        PalindromeChecker checker = new PalindromeChecker();
 
-        System.out.println("===== UC10: Case-Insensitive & Space-Ignored Palindrome Checker =====");
+        System.out.println("===== UC11: Object-Oriented Palindrome Service =====");
         System.out.print("Enter a string to check: ");
         String userInput = scanner.nextLine();
 
-        boolean result = isPalindrome(userInput);
+        boolean result = checker.checkPalindrome(userInput);
 
         if (result) {
-            System.out.println("Result: The given string is a Palindrome (ignoring spaces and case).");
+            System.out.println("Result: The given string is a Palindrome.");
         } else {
             System.out.println("Result: The given string is NOT a Palindrome.");
         }
