@@ -3,37 +3,39 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    public static boolean isPalindrome(String input, int start, int end) {
+    public static boolean isPalindrome(String input) {
 
-        // Base Condition: If pointers cross or are equal
-        if (start >= end) {
-            return true;
+        // Step 1: Normalize string
+        // Remove all spaces using regex and convert to lowercase
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+
+        // Step 2: Apply palindrome logic using two-pointer technique
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        while (start < end) {
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
 
-        // If characters do not match
-        if (input.charAt(start) != input.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving towards center
-        return isPalindrome(input, start + 1, end - 1);
+        return true;
     }
 
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("===== UC9: Recursive Palindrome Checker =====");
+        System.out.println("===== UC10: Case-Insensitive & Space-Ignored Palindrome Checker =====");
         System.out.print("Enter a string to check: ");
         String userInput = scanner.nextLine();
 
-        // Remove spaces and convert to lowercase
-        userInput = userInput.replaceAll("\\s+", "").toLowerCase();
-
-        boolean result = isPalindrome(userInput, 0, userInput.length() - 1);
+        boolean result = isPalindrome(userInput);
 
         if (result) {
-            System.out.println("Result: The given string is a Palindrome.");
+            System.out.println("Result: The given string is a Palindrome (ignoring spaces and case).");
         } else {
             System.out.println("Result: The given string is NOT a Palindrome.");
         }
